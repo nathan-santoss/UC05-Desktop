@@ -1,0 +1,23 @@
+{
+  "name": "uc-05",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "repositorio para a unidade curricular",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nathan-santoss/UC05-Desktop.git"
+  },
+  "author": "nathan-oliveira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nathan-santoss/UC05-Desktop/issues"
+  },
+  "homepage": "https://github.com/nathan-santoss/UC05-Desktop#readme",
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  }
+}
