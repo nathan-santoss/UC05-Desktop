@@ -68,10 +68,13 @@ export class Processador {
   get nucleo(){return this.#nucleo}
   get velocidade(){return this.#velocidade}
   executar(programas){
-    programas.forEach(soft => {
-      console.log(`
-          Executando - ${programas.nome} || ${programas.peso} Mbps`);
-    });
+    if(programas.length < 1){console.log('Sem programas instalados!');}
+    else{
+      programas.forEach(soft => {
+        console.log(`
+            Executando - ${programas.nome} || ${programas.peso} Mbps`);
+      });
+    }
   }
 }
 
@@ -163,7 +166,7 @@ export class Computador {
         [------- FICHA TÉCNICA: ${this.marca} ${this.modelo}-------]
         Processador -> Marca: ${this.processador.marca} || Modelo: ${this.processador.modelo}
         Memoria -> Frequencia: ${this.memoria.frequencia} || Capacidade: ${this.memoria.capacidade}
-        Armazenamento -> Tipo: ${this.armazenamento.tipo} || Capacidade: ${this.armazenamento.capacidade}
+        Armazenamento -> Tipo: ${this.armazenamento.tipo} || Livre: ${this.armazenamento.capacidade}
         Tela -> Tamanho: ${this.tela.tamanho} || Resolução: ${this.tela.resolucao}`);
   }
   instalarsoft(listaDeSoftwares){
