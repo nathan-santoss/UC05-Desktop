@@ -2,8 +2,8 @@ import promptSync from 'prompt-sync'
 const prompt = promptSync()
 import { Armazenamento, Memoria, Processador, Software, Tela, Computador } from './class.js'
 
-
-export const inicialziar = () => {
+export let computadores = []
+export const inicializar = () => {
     console.clear()
     console.log('[------- MEMORIA -------]');
     const frequencia = Number(prompt('Informe a frequencia (Hz/s) -> '))
@@ -35,8 +35,5 @@ export const inicialziar = () => {
     const marca_comp = prompt('Informe a marca -> ')
     const modelo_comp = prompt('Modelo -> ')
     let novoComputador = new Computador(marca_comp, modelo_comp, novaMemoria,novoProcessador,novoArmazenamento,novaTela)
-    let softwares = []
-    novoComputador.imprimir()
-    novoComputador.instalarsoft(softwares)
-    novoComputador.listarSoft(softwares)
+    computadores.push(novoComputador)
 }

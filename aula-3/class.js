@@ -1,6 +1,6 @@
 import promptSync from 'prompt-sync'
 const prompt = promptSync()
-
+export let programas = []
 export class Memoria {
   #tipo;
   #frequencia;
@@ -39,16 +39,15 @@ export class Memoria {
     selecionado = programas.at(selecionado)
     this.emUso = selecionado.consumo_ram
     console.log(`
-        Executando ${selecionado}
+        Executando ${selecionado.nome}
         Memoria em uso ${selecionado.consumo_ram} Mbps
         Livre -> ${this.capacidade - selecionado.consumo_ram}`);
     
   }
   liberarMemoria(programas){
-    this.emUso = selecionado.consumo_ram
     console.log(`
         [---------- LIBERAÇÃO DE MEMÓRIA ----------]
-        ${this.emUso} Mbps Liberados!`);
+        ${(this.#capacidade - this.emUso)} Mbps Liberados!`);
   }
 }
 
@@ -93,7 +92,7 @@ export class Armazenamento {
     this.#espaco_utilizado = novoEspaco
   }
   espacoLivre(){
-    console.log(`${this.#tipo} => ${this.#capacidade - this.#espaco_utilizado} livre`);
+    console.log(`${this.tipo} => ${this.capacidade - this.espaco_utilizado} livre`);
   }
 }
 
@@ -143,6 +142,7 @@ export class Computador {
     this.processador = processador
     this.armazenamento = armazenamento 
     this.tela = tela
+    this.status = 'OFF'
   }
   get marca(){return this.#marca.toUpperCase()}
   get modelo(){return this.#modelo.toUpperCase()}
@@ -167,47 +167,70 @@ export class Computador {
         Tela -> Tamanho: ${this.tela.tamanho} || Resolução: ${this.tela.resolucao}`);
   }
   instalarsoft(listaDeSoftwares){
-    let armEmUso = 0
-    let flag = true
-    while(flag){
-      console.log(`
-          [-------- INSTALAÇÃO DE SOFTWARE -------- ]`);
-      const nome = prompt('Informe o software -> ')
-      const peso = Number(prompt('Tamanho -> '))
-      const consumo = Number(prompt('Consumo -> '))
-      let novoSoft = new Software (nome,peso,consumo)
-      armEmUso += peso
-      if(armEmUso <= this.armazenamento.capacidade){
-        listaDeSoftwares.push(novoSoft)
-        console.log('Software INSTALADO!');
-        this.armazenamento.espaco_utilizado += novoSoft.peso 
-        let repetir = Number(prompt('Instalar novo programa? [1] SIM ou [2] NÃO => '))
-        switch(repetir){
-            case 1:
-                break
-            case 2:
-                flag = false
-                break
+    if(this.status === 'OFF'){console.log('Não foi possível prosseguir. LIGUE O COMPUTADOR!');}
+    else{
+      let armEmUso = 0
+      let flag = true
+      while(flag){
+        console.log(`
+            [-------- INSTALAÇÃO DE SOFTWARE -------- ]`);
+        const nome = prompt('Informe o software -> ')
+        const peso = Number(prompt('Tamanho -> '))
+        const consumo = Number(prompt('Consumo -> '))
+        let novoSoft = new Software (nome,peso,consumo)
+        armEmUso += peso
+        if(armEmUso <= this.armazenamento.capacidade){
+          listaDeSoftwares.push(novoSoft)
+          console.log('Software INSTALADO!');
+          this.armazenamento.espaco_utilizado += novoSoft.peso 
+          let repetir = Number(prompt('Instalar novo programa? [1] SIM ou [2] NÃO => '))
+          switch(repetir){
+              case 1:
+                  break
+              case 2:
+                  flag = false
+                  break
+          }
         }
-      }
-      else{
-        console.log('NÃO FOI POSSÍVEL PROSSEGUIR COM A INSTALAÇÃO');
-        flag = false
+        else{
+          console.log('NÃO FOI POSSÍVEL PROSSEGUIR COM A INSTALAÇÃO');
+          flag = false
+        }
       }
     }
   }
   listarSoft(listaDeSoftwares){
-    console.log(`
-        [-------- SOFTWARES INSTALADOS -------- ]`);
-    listaDeSoftwares.forEach(soft => {
+    if(this.status === 'OFF'){console.log('Não foi possível prosseguir. LIGUE O COMPUTADOR!');}
+    else{
       console.log(`
-          Nome -> ${soft.nome}
-          Espaço -> ${soft.peso}
-          Consumo de RAM -> ${soft.consumo_ram}`);
-    });
-    console.log(`
-        CAPACIDADE CONSUMIDA -> ${this.armazenamento.espaco_utilizado} gb's
-        Disponível -> ${this.armazenamento.capacidade - this.armazenamento.espaco_utilizado}`);
+          [-------- SOFTWARES INSTALADOS -------- ]`);
+      listaDeSoftwares.forEach(soft => {
+        console.log(`
+            Nome -> ${soft.nome}
+            Espaço -> ${soft.peso}
+            Consumo de RAM -> ${soft.consumo_ram}`);
+      });
+      console.log(`
+          CAPACIDADE CONSUMIDA -> ${this.armazenamento.espaco_utilizado} gb's
+          Disponível -> ${this.armazenamento.capacidade - this.armazenamento.espaco_utilizado}`);
+    }
+  }
+  ligar(){
+    if(this.status === 'OFF'){
+      this.status = 'ON'
+      console.log(`O computador está ligado!`);
+    }
+    else{
+      console.log(`O computador está ligado!`);
+    }
+  }
+  desligar(){
+    if(this.status === 'OFF'){
+      this.status = 'ON'
+      console.log('O computador foi desligado!');
+    }else{
+      console.log('O computador já está desligado!');
+    }
   }
 }
 
