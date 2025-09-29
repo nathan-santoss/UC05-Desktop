@@ -14,14 +14,14 @@ while(flag){
     const op = Number(prompt('--> '))
     switch(op){
         case 1:
-            inicializar()
+            inicializar() 
             break
         case 2:
             if(computadores.length < 2){console.log(`É necessário criar 2 computadores para prosseguir neste passo!`);}
             else{
                 
                 console.log(`Selecione um computador:`);
-                computadores.forEach(pc => {
+                computadores.forEach((pc,i) => {
                     console.log(`
                         [${i+1}] - ${pc.marca}/${pc.modelo}`);
                 });
@@ -50,8 +50,6 @@ while(flag){
                         let reset = true
                         while(reset){
                             const acoes = Number(prompt('[1] LIGAR || [2] DESLIGAR (aperte 0 para sair) --> '))
-                            if(acoes = 1){}
-                            else if(acoes = 2){}
                             switch(acoes){
                                 case 1:
                                     computadores[pc].tela.ligar()

@@ -185,7 +185,7 @@ export class Computador {
         if(armEmUso <= this.armazenamento.capacidade){
           listaDeSoftwares.push(novoSoft)
           console.log('Software INSTALADO!');
-          this.armazenamento.espaco_utilizado += novoSoft.peso 
+          this.armazenamento.espaco_utilizado += novoSoft.peso
           let repetir = Number(prompt('Instalar novo programa? [1] SIM ou [2] NÃO => '))
           switch(repetir){
               case 1:
