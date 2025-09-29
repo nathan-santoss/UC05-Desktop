@@ -98,6 +98,9 @@ while(flag){
                                 case 5:
                                     computadores[pc].desligar()
                                     break
+                                case 6:
+                                    computadores[pc].instalarsoft(programas)
+                                    break
                                 case 0:
                                     loop = false
                                     break
