@@ -39,7 +39,11 @@ while(flag){
                 switch(escolha){
                     case 1:
                         computadores[pc].memoria.usarMemoria(programas)
-                        computadores[pc].memoria.liberarMemoria(programas)
+                        let liberar = prompt('liberar memoria ? [1] SIM ou [2] NÃO -> ')
+                        if(liberar === 1){
+                            computadores[pc].memoria.liberarMemoria(programas)
+                        }
+                        else{continue;}
                         break
                     case 2:
                         computadores[pc].processador.executar(programas)
