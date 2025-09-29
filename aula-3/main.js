@@ -81,6 +81,7 @@ while(flag){
                                 [3] - Remover Softwares
                                 [4] - Ligar o pc
                                 [5] - Desligar o pc
+                                [6] - Listar Softwares
                                 [0] - Sair`);
                             const select = Number(prompt('--> '))
                             switch(select){
@@ -99,7 +100,7 @@ while(flag){
                                     computadores[pc].desligar()
                                     break
                                 case 6:
-                                    computadores[pc].instalarsoft(programas)
+                                    computadores[pc].listarSoft(programas)
                                     break
                                 case 0:
                                     loop = false
