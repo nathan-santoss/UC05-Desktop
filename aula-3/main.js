@@ -17,7 +17,7 @@ while(flag){
             inicializar() 
             break
         case 2:
-            if(computadores.length < 2){console.log(`É necessário criar 2 computadores para prosseguir neste passo!`);}
+            if(computadores.length < 1){console.log(`É necessário criar 1 computadores para prosseguir neste passo!`);}
             else{
                 
                 console.log(`Selecione um computador:`);
@@ -26,6 +26,7 @@ while(flag){
                         [${i+1}] - ${pc.marca}/${pc.modelo}`);
                 });
                 let pc = Number(prompt('--> '))
+                pc -= 1
                 console.log(`
                     Qual funcionalidade deseja executar? (execute primeiro o computador)
                     [1] - Memoria
@@ -35,7 +36,7 @@ while(flag){
                     [5] - Computador
                     [0] - Sair`);
                 let escolha = Number(prompt('--> '))
-                switch(escolha-1){
+                switch(escolha){
                     case 1:
                         computadores[pc].memoria.usarMemoria(programas)
                         computadores[pc].memoria.liberarMemoria(programas)
@@ -49,7 +50,7 @@ while(flag){
                     case 4:
                         let reset = true
                         while(reset){
-                            const acoes = Number(prompt('[1] LIGAR || [2] DESLIGAR (aperte 0 para sair) --> '))
+                            let acoes = Number(prompt('[1] LIGAR || [2] DESLIGAR (aperte 0 para sair) --> '))
                             switch(acoes){
                                 case 1:
                                     computadores[pc].tela.ligar()
@@ -65,6 +66,7 @@ while(flag){
                                     break
                             }
                         }
+                        break
                     case 5:
                         let loop = true
                         while(loop){

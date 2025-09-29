@@ -30,18 +30,21 @@ export class Memoria {
     }
   }
   usarMemoria(programas){
-    console.log(`Selecione um dos programas para executar: `);
-    programas.forEach((soft, i) => {
-        console.log(`
-            [${i}] - ${soft.nome} `);
-    });
-    let selecionado = Number(prompt('--> '))
-    selecionado = programas.at(selecionado)
-    this.emUso = selecionado.consumo_ram
-    console.log(`
-        Executando ${selecionado.nome}
-        Memoria em uso ${selecionado.consumo_ram} Mbps
-        Livre -> ${this.capacidade - selecionado.consumo_ram}`);
+    if(programas.length < 1){console.log('NÃO EXISTE SOFTWARES INSTALADOS');}
+    else{
+      console.log(`Selecione um dos programas para executar: `);
+      programas.forEach((soft, i) => {
+          console.log(`
+              [${i}] - ${soft.nome} `);
+      });
+      let selecionado = Number(prompt('--> '))
+      selecionado = programas.at(selecionado)
+      this.emUso = selecionado.consumo_ram
+      console.log(`
+          Executando ${selecionado.nome}
+          Memoria em uso ${selecionado.consumo_ram} Mbps
+          Livre -> ${this.capacidade - selecionado.consumo_ram}`);
+    }
     
   }
   liberarMemoria(programas){
