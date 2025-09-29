@@ -27,7 +27,7 @@ export const inicializar = () => {
     
     console.log('[------- TELA -------]');
     const tamanho_tela = Number(prompt('Tamanho -> '))
-    const resolucao = Number(prompt('Resolução da tela -> '))
+    const resolucao = (prompt('Resolução da tela -> '))
     const novaTela = new Tela(tamanho_tela,resolucao)
     console.clear()
 

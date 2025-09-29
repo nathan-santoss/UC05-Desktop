@@ -133,7 +133,7 @@ export class Tela{
   }
   get resolucao(){return this.#resolucao}
   set resolucao(valor){
-    if(valor > 0 && valor !== this.#resolucao){
+    if(valor.length > 0){
       this.#resolucao = valor
     }else{console.log('Opção inválida!');}
   }
