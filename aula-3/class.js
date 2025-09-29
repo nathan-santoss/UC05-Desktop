@@ -113,10 +113,12 @@ export class Tela{
     this.#status = "OFF"
   }
   ligar(){
-    this.#status = 'ON'    
+    this.#status = 'ON'   
+    console.log('A TELA FOI LIGADA!'); 
   }
   desligar(){
-    this.#status = 'OFF'     
+    this.#status = 'OFF'  
+    console.log('TELA DESLIGADA!');   
   }
   get status(){
     if(this.#status === 'OFF'){console.log('A tela está desligada!');}
