@@ -21,18 +21,22 @@ while(flag){
         case 1:
             const novoFuncionario = criarFuncionario()
             novoFuncionario.mostrarInfo()
-            const horas = novoFuncionario.calculoDeHoras(Number(prompt('Horas trabalhadas: ')))
-            console.log(`Valor à receber -> R$${horas}`);
+            const horas_f = novoFuncionario.calculoDeHoras(Number(prompt('Horas trabalhadas: ')))
+            console.log(`Valor à receber -> R$${horas_f}`);
             break
         case 2:
             const novoGerente = criarGerente()
             novoGerente.mostrarInfo()
+            const horas_g = novoGerente.calculoDeHoras(Number(prompt('Horas trabalhadas: ')))
+            console.log(`Valor à receber -> R$${horas_g}`);
             const bonus = novoGerente.calculoBonificacao()
             console.log(`O valor da bonificação é = R$${bonus}`);
             break
         case 3:
             const novoDiretor = criarDiretor()
             novoDiretor.mostrarInfo()
+            const horas_D = novoDiretor.calculoDeHoras(Number(prompt('Horas trabalhadas: ')))
+            console.log(`Valor à receber -> R$${horas_D}`);
             novoDiretor.calcularGratificacao()
             console.log(`Valor da bonificação é = R$${novoDiretor.pll}%`);
             break
