@@ -13,12 +13,18 @@ class Gerente extends Funcionario{
         const bonusMenor10 = 7/100
         let bonus
         if(this.qtde_team >= 10){
-            bonus = this.salario + (this.salario * bonusMaior10)
+            bonus = this.salario * bonusMaior10
         }
         else{
-            bonus = this.salario + (this.salario * bonusMenor10)
+            bonus = this.salario * bonusMenor10
         }
-        return bonus
+        console.log(`Valor da bonificação é = R$${bonus}`); 
+    }
+    mostrarInfo(){
+        super.mostrarInfo()
+        console.log(`
+            Setor -> ${this.setor}
+            Tamanho da equipe -> ${this.qtde_team}`);
     }
 }
 export const criarGerente = () => {

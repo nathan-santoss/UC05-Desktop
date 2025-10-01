@@ -38,6 +38,12 @@ export class Dono extends Pessoa{
         }
         else{console.log('Valor inválido!');}
     }
+    mostrarInfo(){
+        super.mostrarInfo()
+        console.log(`
+            Patrimonio -> R$${this.patrimonio}
+            Taxa de participação -> ${this.participacaoAcionaria}%`);
+    }
 }
 export const criarDono = () => {
     let nome = prompt('Digite o nome -> ')

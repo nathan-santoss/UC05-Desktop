@@ -41,6 +41,12 @@ export class Diretor extends Funcionario{
                 break
         }
     }
+    mostrarInfo(){
+        super.mostrarInfo()
+        console.log(`
+            Departamento -> ${this.departamento}
+            Tempo de Direção -> ${this.tempoDireccao} anos`);
+    }
 }
 
 export const criarDiretor = () => {
