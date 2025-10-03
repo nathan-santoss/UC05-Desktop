@@ -1,7 +1,7 @@
 export class Pessoa{ // classe abstrata
     #cpf
     constructor(nome, cpf, nascimento){
-        this.nome = nome
+        this.nome = nome.toUpperCase()
         this.#cpf = cpf
         this.nascimento = nascimento
     }

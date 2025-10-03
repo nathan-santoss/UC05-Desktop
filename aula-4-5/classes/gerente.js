@@ -7,18 +7,35 @@ class Gerente extends Funcionario{
         super(nome, cpf, nascimento, salario, matricula)
         this.setor = setor
         this.qtde_team = qtde_team
+        this.bonus
     }
     calculoBonificacao(){
         const bonusMaior10 = 15/100
         const bonusMenor10 = 7/100
-        let bonus
         if(this.qtde_team >= 10){
-            bonus = this.salario * bonusMaior10
+            this.bonus = this.salario * bonusMaior10
         }
         else{
-            bonus = this.salario * bonusMenor10
+            this.bonus = this.salario * bonusMenor10
+        } 
+    }
+    calcularSalario(){
+        let bruto = this.salario + this.bonus + (this.horasExtras*this.valorHora) 
+        if(this.horasExtras > 0){
+            this.inss = 12/100
+            this.desconto = bruto * this.inss
+            this.liquido = bruto - this.desconto
         }
-        console.log(`Valor da bonificação é = R$${bonus}`); 
+        else if(this.horasExtras = 0){
+            this.inss = 9/100
+            this.desconto = bruto * this.inss
+            this.liquido = bruto - this.desconto
+        }
+    }
+    gerarContraCheque(){
+        super.gerarContraCheque()
+        console.log(`
+            Bonus adicional => R$${this.bonus.toFixed(2)}`);
     }
     mostrarInfo(){
         super.mostrarInfo()
@@ -33,7 +50,7 @@ export const criarGerente = () => {
     let nasc = prompt('Data de Nascimento -> ')
     let matricula = Number(prompt('Matricula ->'))
     let salario = Number(prompt('Salário -> '))
-    let setor = prompt('Setor responsável -> ')
+    let setor = prompt('Setor responsável -> ').toUpperCase()
     let qtde = Number(prompt('Quantos funcionários sob a gestão? '))
     const novoGerente = new Gerente(nome, cpf, nasc, salario, matricula, setor, qtde)
     return novoGerente

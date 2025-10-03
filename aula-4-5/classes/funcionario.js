@@ -5,10 +5,11 @@ const prompt = PromptSync()
 export class Funcionario extends Pessoa{
     #salario
     #matricula
-    constructor(nome, cpf, nascimento, salario, matricula, extras){
+    constructor(nome, cpf, nascimento, salario, matricula){
         super(nome, cpf, nascimento)
         this.#salario = salario
         this.#matricula = matricula
+        this.valorHora
         this.horasExtras = 0
         this.desconto = 0
         this.liquido = 0
@@ -27,19 +28,20 @@ export class Funcionario extends Pessoa{
 
 
     calculoDeHoras(){
-        this.horasExtras = Number(prompt('Informe o número de horas extras: '))     
+        this.horasExtras = Number(prompt('Informe o número de horas extras: '))   
+        this.valorHora = 20  
     }
     calcularSalario(){
         if(this.horasExtras > 0){
             this.inss = 9/100
-            let bruto = this.salario + (this.horasExtras*15)
+            let bruto = this.salario + (this.horasExtras*this.valorHora)
             this.desconto = bruto * this.inss
             this.liquido = bruto - this.desconto
 
         }
         else if(this.horasExtras = 0){
             this.inss = 7.5/100
-            let bruto = this.salario + (this.horasExtras*15)
+            let bruto = this.salario + (this.horasExtras*this.valorHora)
             this.desconto = bruto * this.inss
             this.liquido = bruto - this.desconto
         }
@@ -48,10 +50,10 @@ export class Funcionario extends Pessoa{
         console.log(`
             [CONTRA-CHEQUE]
             Salário Base -> R$${this.salario.toFixed(2)}
-            Horas extras -> R$${this.horasExtras * 15} (${this.horasExtras} horas)
+            Horas extras -> R$${this.horasExtras * this.valorHora} (${this.horasExtras} horas)
+            Bruto -> R$${(this.horasExtras*this.valorHora)+ (this.salario)}
             Desconto -> R$${this.desconto.toFixed(2)}
-            Liquido a receber -> R$${this.liquido}`);
-            
+            Liquido a receber -> R$${this.liquido.toFixed(2)}`); 
     }
     mostrarInfo(){
         super.mostrarInfo()

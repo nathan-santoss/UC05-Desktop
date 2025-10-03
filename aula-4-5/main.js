@@ -22,11 +22,16 @@ while(flag){
             const novoFuncionario = criarFuncionario()
             novoFuncionario.calculoDeHoras()
             novoFuncionario.calcularSalario()
+            novoFuncionario.mostrarInfo()
             novoFuncionario.gerarContraCheque()
             break
         case 2:
             const novoGerente = criarGerente()
-            
+            novoGerente.calculoBonificacao()
+            novoGerente.calculoDeHoras()
+            novoGerente.calcularSalario()
+            novoGerente.mostrarInfo()
+            novoGerente.gerarContraCheque()
             break
         case 3:
             const novoDiretor = criarDiretor()
