@@ -51,7 +51,7 @@ class Dono extends Pessoa{
 }
 
 export const criarDono = () => {
-    const nome = prompt('Nome do funcionário: ').toUpperCase()
+    const nome = prompt('Nome do Dono: ').toUpperCase()
     const cpf = prompt('CPF: ')
     const nascimento = prompt('Data de nascimento: ')
     const pa = Number(prompt('Informe a taxa de Participação Acionária: '))
