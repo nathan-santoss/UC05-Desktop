@@ -1,9 +1,13 @@
 import { Quarto } from "./Quarto.js";
 
 export class Reserva extends Quarto{
-    constructor(numQuarto, quarto_categoria, dataReserva, cliente_obj){
-        super(numQuarto, quarto_categoria)
-        this.dataReserva = dataReserva
+    constructor(quarto, cliente_obj){
+        this.dataReserva = gerarData()
         this.cliente = cliente_obj
+        this.quarto = quarto
     } 
+}
+const gerarData = () => {
+    let data = new Date()
+    let datatual =+ data.toLocaleDateString('pt-BR')
 }
