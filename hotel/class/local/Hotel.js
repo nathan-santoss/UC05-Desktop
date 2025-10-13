@@ -10,59 +10,65 @@ export class Hotel{
         this.quartos = []
         this.reservas = []
         this.funcionarios = []
+        this.clientes = []
     }
     adicionarQuarto(numero, categoria){
         const novoQuarto = new Quarto(numero, categoria)
         this.quartos.push(novoQuarto)
+        console.log('Quarto adicionado!');
     }
-    reservarQuarto(quarto, data){
-        const nome = prompt('Nome: ')
-        const cpf = prompt('CPF: ')
-        const contato = prompt('Telefone/Celular: ')
-        let novoCliente = new Cliente(nome, cpf, contato)
+    reservarQuarto(quarto, data, novoCliente){
         const novaReserva = new Reserva(quarto, data, novoCliente)
         this.reservas.push(novaReserva)
+        console.log('Reserva efetivada!');
     }
     cancelarReserva(quarto, data, cliente){
-        const reservaCancelada = this.reservas.findIndex(r => r.quarto.num === quarto && r.data === data && r.cliente.nome === cliente)
-        this.reservas.splice(reservaCancelada, 1)
-        console.log('Reserva Cancelada!');
+        const reservaCancelada = this.reservas.findIndex(r => r.quarto.numero === quarto && r.data.getTime() === data.getTime() && r.cliente.nome === cliente)
+        if(reservaCancelada === -1){throw new Error('Erro: Reserva não encontrada!')}
+        else{
+            this.reservas.splice(reservaCancelada, 1)
+            console.log('Reserva Cancelada!');
+        }
     }
     mostrarDisponiveis(dataEscolhida){
-        const reservasDoDia = this.reservas.filter(r => r.data === dataEscolhida)
-        const quartosReservados = reservasDoDia.map(r => r.quarto.num)
+        const reservasDoDia = this.reservas.filter(r => r.data.getTime() === dataEscolhida.getTime())
+        const quartosReservados = reservasDoDia.map(r => r.quarto.numero)
         const quartosDisponiveis = this.quartos.filter(quarto => {
-            if(!quartosReservados.includes(quarto.num)){return quarto}
+            if(!quartosReservados.includes(quarto.numero)){return quarto}
         })
         console.log('[------- QUARTOS DISPONÍVEIS -------]');
+        if(quartosDisponiveis.length === 0){throw new Error('Erro: Não há disponibilidade para o dia!')}
         quartosDisponiveis.forEach(quarto => {
             quarto.mostrarInfo()
             console.log('---------------------');
         });
         console.log('--- Fim da lista ---');
     }
-    listarReservas(){
+    listarReservas(hoje){
         console.log('[--------- PRÓXIMAS RESERVAS ---------]');
+        if(this.reservas.length === 0){throw new Error('Erro: É necessário criar uma reserva!')}
         this.reservas.forEach(r => {
-            console.log(`
-                Data -> ${r.data}
-                Nome: ${r.cliente.nome}
-                CPF: ${r.cliente.cpf}
-                Quarto -> N°${r.quarto.num} (${r.quarto.categoria})
-                -----------------------------`);
+            if(r.data.getTime() >= hoje.getTime()){
+                console.log(`
+                    Data -> ${r.data.toLocaleDateString('pt-BR')}
+                    Nome: ${r.cliente.nome}
+                    CPF: ${r.cliente.cpf}
+                    Quarto -> N°${r.quarto.numero} (${r.quarto.categoria})
+                    -----------------------------`);
+            }
         });
     }
     detalharReserva(){
         let procurado = Number(prompt('Informe o CPF do cliente: '))
         procurado = this.reservas.filter(r => r.cliente.cpf === procurado)
-        if(!procurado){throw new Error('Erro: Cliente não encontrado no registro!')}
+        if(procurado.length === 0){throw new Error('Erro: Cliente não encontrado no registro!')}
         else{
             console.log(`
-                [------ CLIENTE ENCONTRADO: ${procurado.cliente.nome} ------]`);  
+                [------ CLIENTE ENCONTRADO: ${procurado[0].cliente.nome} ------]`);  
             procurado.forEach(reservas => {
                 console.log(`
-                    Data -> ${reservas.data}
-                    Quarto -> N°${reservas.quarto.num} (${reservas.quarto.categoria})
+                    Data -> ${reservas.data.toLocaleDateString('pt-BR')}
+                    Quarto -> N°${reservas.quarto.numero} (${reservas.quarto.categoria})
                     --------------------------------`);
             });
         }

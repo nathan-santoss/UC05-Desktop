@@ -27,8 +27,12 @@ export const autenticar = (listaFuncionarios) => {
 
 export const checarDisp = (listaReservas, dataEscolhida, quarto_numero) => {
     const reservasDoDia = listaReservas.filter(r => r.data.getTime() === dataEscolhida.getTime())
-    const quartoOcupado = reservasDoDia.some( r => r.quarto.num === quarto_numero)
+    const quartoOcupado = reservasDoDia.some( r => r.quarto.numero === quarto_numero)
     if(quartoOcupado){return true}
     else{return false}
+}
 
+export const checarQuartoExistente = (listadeQuartos, num_quarto) => {
+    let jaExiste = listadeQuartos.some(q => q.numero === num_quarto)
+    return jaExiste
 }
