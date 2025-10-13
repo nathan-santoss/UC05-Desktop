@@ -2,7 +2,8 @@ import PromptSync from "prompt-sync"
 const prompt = PromptSync()
 import { Reserva } from './Reserva.js'
 import { Quarto } from './Quarto.js'
-import { Cliente } from "../Cliente.js"
+import { normalizaData } from "../../menus/menuFunc/function.js"
+
 
 export class Hotel{
     constructor(nome){
@@ -23,7 +24,7 @@ export class Hotel{
         console.log('Reserva efetivada!');
     }
     cancelarReserva(quarto, data, cliente){
-        const reservaCancelada = this.reservas.findIndex(r => r.quarto.numero === quarto && r.data.getTime() === data.getTime() && r.cliente.nome === cliente)
+        const reservaCancelada = this.reservas.findIndex(r => r.quarto.numero === quarto && normalizaData(r.data).getTime() === normalizaData(data).getTime() && r.cliente.nome === cliente)
         if(reservaCancelada === -1){throw new Error('Erro: Reserva não encontrada!')}
         else{
             this.reservas.splice(reservaCancelada, 1)
@@ -31,7 +32,7 @@ export class Hotel{
         }
     }
     mostrarDisponiveis(dataEscolhida){
-        const reservasDoDia = this.reservas.filter(r => r.data.getTime() === dataEscolhida.getTime())
+        const reservasDoDia = this.reservas.filter(r => normalizaData(r.data).getTime() === normalizaData(dataEscolhida).getTime())
         const quartosReservados = reservasDoDia.map(r => r.quarto.numero)
         const quartosDisponiveis = this.quartos.filter(quarto => {
             if(!quartosReservados.includes(quarto.numero)){return quarto}
@@ -48,7 +49,7 @@ export class Hotel{
         console.log('[--------- PRÓXIMAS RESERVAS ---------]');
         if(this.reservas.length === 0){throw new Error('Erro: É necessário criar uma reserva!')}
         this.reservas.forEach(r => {
-            if(r.data.getTime() >= hoje.getTime()){
+            if(normalizaData(r.data).getTime() >= normalizaData(hoje).getTime()){
                 console.log(`
                     Data -> ${r.data.toLocaleDateString('pt-BR')}
                     Nome: ${r.cliente.nome}

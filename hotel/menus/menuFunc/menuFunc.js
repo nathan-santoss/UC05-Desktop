@@ -1,6 +1,6 @@
 import PromptSync from "prompt-sync"
 const prompt = PromptSync()
-import { criarFuncionario, autenticar, checarDisp, checarQuartoExistente } from "./function.js"
+import { criarFuncionario, autenticar, checarDisp, checarQuartoExistente, normalizaData } from "./function.js"
 import { checarExistenciaCliente, criarCliente } from "../menuCliente/functions.js"
 export const menuFunc = (hotel, hoje) => { 
     let flag = true
@@ -14,14 +14,14 @@ export const menuFunc = (hotel, hoje) => {
         console.clear()
         switch(op){
             case 1:
-                let funcionarioAutenticado = autenticar(hotel.funcionarios)
-                if(!funcionarioAutenticado){throw new Error("Erro: Dados inválidos!");}
-                else{
-                    try{
+                try{
+                    let funcionarioAutenticado = autenticar(hotel.funcionarios)
+                    if(!funcionarioAutenticado){throw new Error("Erro: Dados inválidos!");}
+                    else{
                         fluxoLogin(hotel, hoje)
-                    }catch(e){
-                        console.error(e.message)
                     }
+                }catch(e){
+                    console.error(e.message)
                 }
                 break
             case 2:
@@ -72,7 +72,7 @@ const fluxoLogin = (hotel, hoje) => {
                 let dia = parseInt(prompt('Dia: '))
                 let ano = 2025
                 let dataEscolhida = new Date(ano, mes, dia)
-                if(dataEscolhida.getTime() <= hoje.getTime()){throw new Error('Erro: Não é possível agendar dadas passadas!')}
+                if(normalizaData(dataEscolhida).getTime() < normalizaData(hoje).getTime()){throw new Error('Erro: Não é possível agendar dadas passadas!')}
                 let ocupado = checarDisp(hotel.reservas,dataEscolhida, quarto)
                 if(ocupado){throw new Error('Erro: O quarto está ocupado!')}
                 else{
@@ -98,7 +98,7 @@ const fluxoLogin = (hotel, hoje) => {
                 let diaCancelado = parseInt(prompt('Dia: '))
                 let anoCancelado = 2025
                 const dataCancelado = new Date(anoCancelado,mesCancelado,diaCancelado)
-                if(dataCancelado.getTime() <= hoje.getTime()){throw new Error('Erro: Não é possível cancelar dadas passadas!')}
+                if(normalizaData(dataCancelado).getTime() < normalizaData(hoje).getTime()){throw new Error('Erro: Não é possível cancelar dadas passadas!')}
                 let clienteCancelado = prompt('Nome do cliente: ').toUpperCase()
                 hotel.cancelarReserva(numCancelado, dataCancelado, clienteCancelado)
                 break

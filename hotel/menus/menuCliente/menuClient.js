@@ -13,15 +13,23 @@ export const menuCliente = (hotel, hoje) => {
         const op = parseInt(prompt('-> '))
         switch(op){
             case 1:
-                if(hotel.clientes.length === 0){throw new Error('Erro: Não existem clientes cadastrados!')}
-                const cpf = Number(prompt('Informe seu CPF: '))
-                let autenticado = hotel.clientes.some(cliente => cliente.cpf === cpf)
-                if(!autenticado){throw new Error('O cliente não existe!')}
-                const cliente = hotel.clientes.find(c => c.cpf === cpf)
-                fluxodeLoginCliente(hotel, cliente, hoje)
+                try{
+                    if(hotel.clientes.length === 0){throw new Error('Erro: Não existem clientes cadastrados!')}
+                    const cpf = Number(prompt('Informe seu CPF: '))
+                    let autenticado = hotel.clientes.some(cliente => cliente.cpf === cpf)
+                    if(!autenticado){throw new Error('O cliente não existe!')}
+                    const cliente = hotel.clientes.find(c => c.cpf === cpf)
+                    fluxodeLoginCliente(hotel, cliente, hoje)
+                }catch(e){
+                    console.error(e.message)
+                }
                 break
             case 2:
-                const novoCliente = criarCliente(hotel)
+                try {
+                    const novoCliente = criarCliente(hotel)
+                } catch (e) {
+                    console.error(e.message)
+                }
                 break
             case 0:
                 flag = false
@@ -52,7 +60,7 @@ const fluxodeLoginCliente = (hotel, cliente, hoje) => {
                 let dia = parseInt(prompt('Dia: '))
                 let ano = 2025
                 let dataEscolhida = new Date(ano, mes, dia)
-                if(dataEscolhida.getTime() <= hoje.getTime()){throw new Error('Erro: Não é possível agendar dadas passadas!')}
+                if(dataEscolhida.getTime() < hoje.getTime()){throw new Error('Erro: Não é possível agendar dadas passadas!')}
                 let ocupado = checarDisp(hotel.reservas,dataEscolhida, quarto)
                 if(ocupado){throw new Error('Erro: O quarto está ocupado!')}
                 else{
@@ -66,7 +74,7 @@ const fluxodeLoginCliente = (hotel, cliente, hoje) => {
                 let diaCancelado = parseInt(prompt('Dia: '))
                 let anoCancelado = 2025
                 const dataCancelado = new Date(anoCancelado,mesCancelado,diaCancelado)
-                if(dataCancelado.getTime() <= hoje.getTime()){throw new Error('Erro: Não é possível cancelar dadas passadas!')}
+                if(dataCancelado.getTime() < hoje.getTime()){throw new Error('Erro: Não é possível cancelar dadas passadas!')}
                 let clienteCancelado = cliente.nome
                 hotel.cancelarReserva(numCancelado, dataCancelado, clienteCancelado)
                 break

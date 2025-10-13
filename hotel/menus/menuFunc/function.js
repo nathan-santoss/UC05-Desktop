@@ -36,3 +36,9 @@ export const checarQuartoExistente = (listadeQuartos, num_quarto) => {
     let jaExiste = listadeQuartos.some(q => q.numero === num_quarto)
     return jaExiste
 }
+
+export const normalizaData = (data) => {
+    const datanormal = new Date(data)
+    datanormal.setHours(0,0,0,0)
+    return datanormal
+}
