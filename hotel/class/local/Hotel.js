@@ -2,8 +2,9 @@ import PromptSync from "prompt-sync"
 const prompt = PromptSync()
 import { Reserva } from './Reserva.js'
 import { Quarto } from './Quarto.js'
+import { Cliente } from "../Cliente.js"
 
-class Hotel{
+export class Hotel{
     constructor(nome){
         this.nome = nome.toUpperCase()
         this.quartos = []
@@ -18,12 +19,14 @@ class Hotel{
         const nome = prompt('Nome: ')
         const cpf = prompt('CPF: ')
         const contato = prompt('Telefone/Celular: ')
-        const novaReserva = new Reserva(quarto, data, cliente)
+        let novoCliente = new Cliente(nome, cpf, contato)
+        const novaReserva = new Reserva(quarto, data, novoCliente)
         this.reservas.push(novaReserva)
     }
     cancelarReserva(quarto, data, cliente){
         const reservaCancelada = this.reservas.findIndex(r => r.quarto.num === quarto && r.data === data && r.cliente.nome === cliente)
         this.reservas.splice(reservaCancelada, 1)
+        console.log('Reserva Cancelada!');
     }
     mostrarDisponiveis(dataEscolhida){
         const reservasDoDia = this.reservas.filter(r => r.data === dataEscolhida)

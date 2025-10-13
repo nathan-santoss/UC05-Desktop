@@ -1,8 +1,8 @@
 import PromptSync from "prompt-sync"
 const prompt = PromptSync()
-import { Hotel } from "./class/local/Hotel.js"
-import { menuFunc } from './menus/menuFunc/menuFunc.js'
-const hotel = new Hotel(nome)
+import { Hotel } from './class/local/Hotel.js';
+import { menuFunc } from './menus/menuFunc/menuFunc.js';
+export const hotel = new Hotel(prompt('Qual será o nome do hotel? '))
 let flag = true
 while(flag){
     console.log(`
@@ -14,7 +14,11 @@ while(flag){
     const op = Number(prompt('-> '))
     switch(op){
         case 1:
-            menuFunc(hotel)
+            try {
+                menuFunc(hotel)
+            } catch (e) {
+                console.error(e.message)
+            }
             break
     }
     

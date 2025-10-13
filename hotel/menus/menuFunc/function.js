@@ -22,7 +22,7 @@ export const autenticar = (listaFuncionarios) => {
         if(login === funcionario.nome && senha === funcionario.cpf){return funcionario}
     })
     if(!autenticado){throw new Error('Erro: Dados inválidos!')}
-    else{return autenticado}
+    else{return true}
 }
 
 export const checarDisp = (listaReservas, dataEscolhida, quarto_numero) => {

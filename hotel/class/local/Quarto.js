@@ -1,4 +1,4 @@
-class Quarto {
+export class Quarto {
     constructor(numero, categoria) {
         this.numero = parseInt(numero)
         this.categoria = categoria.toUpperCase()
