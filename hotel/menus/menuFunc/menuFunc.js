@@ -1,7 +1,9 @@
 import PromptSync from "prompt-sync"
 const prompt = PromptSync()
+import path from 'path'
+import { readFileSync } from "fs"
 import { criarFuncionario, autenticar, checarDisp, checarQuartoExistente, normalizaData } from "./function.js"
-import { checarExistenciaCliente, criarCliente } from "../menuCliente/functions.js"
+import { criarCliente } from "../menuCliente/functions.js"
 export const menuFunc = (hotel, hoje) => { 
     let flag = true
     while(flag){
@@ -53,6 +55,7 @@ const fluxoLogin = (hotel, hoje) => {
             [4] - Próximas Reservas;
             [5] - Cancelar Reserva;
             [6] - Consultar reserva;
+            [7] - Gerar Relatório;
             [0] - Logout;`);
         const select = Number(prompt('-> '))
         console.clear()
@@ -104,6 +107,9 @@ const fluxoLogin = (hotel, hoje) => {
                 break
             case 6:
                 hotel.detalharReserva()
+                break
+            case 7:
+                hotel.gerarRelatorio()
                 break
             case 0:
                 reset = false

@@ -1,5 +1,7 @@
 import PromptSync from "prompt-sync"
 const prompt = PromptSync()
+import path from 'path'
+import { mkdirSync, appendFileSync, readFileSync } from "fs"
 import { Reserva } from './Reserva.js'
 import { Quarto } from './Quarto.js'
 import { normalizaData } from "../../menus/menuFunc/function.js"
@@ -22,6 +24,7 @@ export class Hotel{
         const novaReserva = new Reserva(quarto, data, novoCliente)
         this.reservas.push(novaReserva)
         console.log('Reserva efetivada!');
+        adicionarRelatorio(novaReserva)
     }
     cancelarReserva(quarto, data, cliente){
         const reservaCancelada = this.reservas.findIndex(r => r.quarto.numero === quarto && normalizaData(r.data).getTime() === normalizaData(data).getTime() && r.cliente.nome === cliente)
@@ -74,4 +77,24 @@ export class Hotel{
             });
         }
     }
+    gerarRelatorio(){
+        const diretorio = path.resolve('relatorio/reservasGeral.txt')
+        const relatorioGerado = fs.readFileSync(diretorio, 'utf-8')
+        console.log(relatorioGerado);
+    }
+}
+
+const adicionarRelatorio = (reservaFeita) => {
+    const referencia = 'relatorio'
+    const base = '../../../hotel'
+    const diretorioAbsoluto = path.resolve(path.join(base, referencia))
+    const arquivo = path.join(diretorioAbsoluto, 'reservasGeral.txt')
+    mkdirSync(diretorioAbsoluto, {recursive: true})
+    const reserva = `
+        Nome -> ${reservaFeita.cliente.nome}
+        Contato -> ${reservaFeita.cliente.contato}
+        Data -> ${reservaFeita.data.toLocaleDateString()}
+        Quarto -> ${reservaFeita.quarto.numero}`
+    appendFileSync(arquivo, reserva)
+    console.log('Reserva inclusa no relatório!');
 }

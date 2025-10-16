@@ -4,4 +4,5 @@ export class Reserva{
         this.data = data
         this.cliente = cliente
     }
+    
 }
