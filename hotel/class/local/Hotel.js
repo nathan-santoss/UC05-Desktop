@@ -78,16 +78,14 @@ export class Hotel{
         }
     }
     gerarRelatorio(){
-        const diretorio = path.resolve('relatorio/reservasGeral.txt')
-        const relatorioGerado = fs.readFileSync(diretorio, 'utf-8')
+        const diretorio = path.resolve('relatorio', 'reservasGeral.txt')
+        const relatorioGerado = readFileSync(diretorio, 'utf-8')
         console.log(relatorioGerado);
     }
 }
 
 const adicionarRelatorio = (reservaFeita) => {
-    const referencia = 'relatorio'
-    const base = '../../../hotel'
-    const diretorioAbsoluto = path.resolve(path.join(base, referencia))
+    const diretorioAbsoluto = 'relatorio'
     const arquivo = path.join(diretorioAbsoluto, 'reservasGeral.txt')
     mkdirSync(diretorioAbsoluto, {recursive: true})
     const reserva = `
