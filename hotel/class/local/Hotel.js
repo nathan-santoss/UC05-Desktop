@@ -20,8 +20,8 @@ export class Hotel{
         this.quartos.push(novoQuarto)
         console.log('Quarto adicionado!');
     }
-    reservarQuarto(quarto, data, novoCliente){
-        const novaReserva = new Reserva(quarto, data, novoCliente)
+    reservarQuarto(quarto, data, novoCliente, hoje){
+        const novaReserva = new Reserva(quarto, data, novoCliente, hoje)
         this.reservas.push(novaReserva)
         console.log('Reserva efetivada!');
         adicionarRelatorio(novaReserva)
@@ -80,19 +80,30 @@ export class Hotel{
     gerarRelatorio(){
         const diretorio = path.resolve('relatorio', 'reservasGeral.txt')
         const relatorioGerado = readFileSync(diretorio, 'utf-8')
+        console.log(`[--------- RELATÓRIO GERAL DE RESERVAS ---------]`);
         console.log(relatorioGerado);
+        console.log(`\n[--------- FIM DO RELATÓRIO ---------]`);
     }
 }
 
 const adicionarRelatorio = (reservaFeita) => {
     const diretorioAbsoluto = 'relatorio'
-    const arquivo = path.join(diretorioAbsoluto, 'reservasGeral.txt')
+    const arquivoGeral = path.join(diretorioAbsoluto, 'reservasGeral.txt')
     mkdirSync(diretorioAbsoluto, {recursive: true})
     const reserva = `
+        Data de criação (${reservaFeita.dataDeCriacao.toLocaleDateString('pt-BR')})
         Nome -> ${reservaFeita.cliente.nome}
         Contato -> ${reservaFeita.cliente.contato}
-        Data -> ${reservaFeita.data.toLocaleDateString()}
-        Quarto -> ${reservaFeita.quarto.numero}`
-    appendFileSync(arquivo, reserva)
+        Data -> ${reservaFeita.data.toLocaleDateString('pt-BR')}
+        Quarto -> ${reservaFeita.quarto.numero}
+        ------------------ xxx ------------------\n`
+    appendFileSync(arquivoGeral, reserva)
     console.log('Reserva inclusa no relatório!');
+
+    const mesAtual = reservaFeita.data.toLocaleString('pt-BR', {month: 'long'})
+    const arquivoDoMes = path.join(diretorioAbsoluto, `reservas-de-${mesAtual}.txt`)
+    mkdirSync(diretorioAbsoluto, {recursive: true})
+    appendFileSync(arquivoDoMes, reserva)
 }
+
+

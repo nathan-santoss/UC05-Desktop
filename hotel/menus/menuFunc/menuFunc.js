@@ -81,7 +81,7 @@ const fluxoLogin = (hotel, hoje) => {
                 else{
                     let quartoEscolhido = hotel.quartos.find(q => q.numero === quarto)
                     let novoCliente = criarCliente(hotel)
-                    hotel.reservarQuarto(quartoEscolhido, dataEscolhida, novoCliente)
+                    hotel.reservarQuarto(quartoEscolhido, dataEscolhida, novoCliente, hoje)
                 }
                 break
             case 3:
