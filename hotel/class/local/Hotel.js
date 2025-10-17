@@ -78,11 +78,25 @@ export class Hotel{
         }
     }
     gerarRelatorio(){
-        const diretorio = path.resolve('relatorio', 'reservasGeral.txt')
-        const relatorioGerado = readFileSync(diretorio, 'utf-8')
-        console.log(`[--------- RELATÓRIO GERAL DE RESERVAS ---------]`);
-        console.log(relatorioGerado);
-        console.log(`\n[--------- FIM DO RELATÓRIO ---------]`);
+        console.log(`
+            Escolha uma das opções abaixo:
+            [1] Relatório geral;
+            [2] Selecionar um mês específico;
+            [0] Voltar`);
+        const selecionado = parseInt(prompt('-> '))
+        switch(selecionado){
+            case 1:
+                const diretorio = path.resolve('relatorio', 'reservasGeral.txt')
+                const relatorioGerado = readFileSync(diretorio, 'utf-8')
+                console.log(`[--------- RELATÓRIO GERAL DE RESERVAS ---------]`);
+                console.log(relatorioGerado);
+                console.log(`\n[--------- FIM DO RELATÓRIO ---------]`);
+                break
+            case 2:
+                const mesEscolhido = parseInt(prompt('Escolha o mês (em número) ->  '))
+                
+        }
+        
     }
 }
 
